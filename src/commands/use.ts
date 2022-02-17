@@ -10,6 +10,8 @@ import * as fse from 'fs-extra'
 import TemplatrDefiner from '../types/templatrDefiner'
 
 import {glob} from 'glob'
+import Placeholder from '../types/placeholder'
+import SpecialPaths from '../types/specialPaths'
 
 export default class Use extends Command {
   static description = 'describe the command here'
@@ -101,12 +103,30 @@ export default class Use extends Command {
 
     const prompts: any = [];
 
+    const placeholderCachePath = Path.join(SpecialPaths.APPDATA, "placeholder_cache.json");
+
+    if(!fs.existsSync(placeholderCachePath)) {
+      const c_cache: Map<string, string> = new Map<string, string>();
+      c_cache.set("example-templatr-placeholder", "dorime");
+      fs.writeFileSync(placeholderCachePath, JSON.stringify(Object.fromEntries(c_cache), null, 4));
+    }
+
+    const cache: Map<string, string> = new Map<string, string>(Object.entries(JSON.parse(fs.readFileSync(placeholderCachePath, {encoding: "utf-8"}))));
+
     templatr.placeholders.forEach(placeholder => {
+      let defaultValue = "";
+      if(placeholder.cachable) {
+        if(cache.has(placeholder.match)) {
+          defaultValue += cache.get(placeholder.match);
+        }
+      }
+
       prompts.push({
         type: 'input',
         name: placeholder.match,
-        message: placeholder.prompt
-      })
+        message: placeholder.prompt,
+        default: defaultValue
+      });
     });
 
     const results: any = await inquirer.prompt(prompts);
@@ -115,7 +135,15 @@ export default class Use extends Command {
 
     const matches: string[] = [];
 
-    templatr.placeholders.forEach(placeholder => matches.push(placeholder.match))
+    templatr.placeholders.forEach(placeholder => {
+      matches.push(placeholder.match);
+      if(placeholder.cachable) {
+        console.log("Saving cache for " + placeholder.match + " to " + results[placeholder.match]);
+        cache.set(placeholder.match, results[placeholder.match]);
+      }
+    });
+
+    fs.writeFileSync(placeholderCachePath, JSON.stringify(Object.fromEntries(cache), null, 4));
 
     glob(projectLocation + "/**/*", { dot: true, nodir: true }, (err, filePaths) => {
       filePaths.forEach(file => {

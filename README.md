@@ -15,7 +15,7 @@ yarn add global templatr
 ## Usage
 
 ```bash
-templatr use Lauriethefish/quest-mod-template
+tmplytr use Lauriethefish/quest-mod-template
 # Will then follow you through a wizard allowing you to fill in all placeholders.
 ```
 

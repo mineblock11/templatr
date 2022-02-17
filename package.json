@@ -1,11 +1,9 @@
 {
-  "name": "templatr",
-  "version": "1.0.0",
+  "name": "tmplytr",
+  "version": "1.1.0",
   "description": "Generate projects from a template. Fill in defined placeholders from a .templatr file",
   "author": "cal117 @cal117",
-  "bin": {
-    "templatr": "./bin/run"
-  },
+  "bin": "./bin/run",
   "homepage": "https://github.com/cal117/templatr",
   "license": "MIT",
   "main": "dist/index.js",
