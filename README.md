@@ -7,9 +7,9 @@ Create project from templates on GitHub and GitLab - specified by a `.templatr` 
 Use `npm` or `yarn` (or download the exe from the release page)
 
 ```bash
-npm install -g templatr
+npm install -g tmplytr
 # or
-yarn add global templatr
+yarn add global tmplytr
 ```
 
 ## Usage
