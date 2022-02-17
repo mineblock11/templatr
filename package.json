@@ -1,0 +1,75 @@
+{
+  "name": "templatr",
+  "version": "1.0.0",
+  "description": "Generate projects from a template. Fill in defined placeholders from a .templatr file",
+  "author": "cal117 @cal117",
+  "bin": {
+    "templatr": "./bin/run"
+  },
+  "homepage": "https://github.com/cal117/templatr",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "repository": "cal117/templatr",
+  "files": [
+    "/bin",
+    "/dist",
+    "/npm-shrinkwrap.json",
+    "/oclif.manifest.json"
+  ],
+  "dependencies": {
+    "@oclif/core": "^1",
+    "@oclif/plugin-help": "^5",
+    "@oclif/plugin-plugins": "^2.0.1",
+    "@types/fs-extra": "^9.0.13",
+    "@types/glob": "^7.2.0",
+    "@types/inquirer": "^8.2.0",
+    "appdata-path": "^1.0.0",
+    "fs-extra": "^10.0.0",
+    "glob": "^7.2.0",
+    "inquirer": "^8.2.0",
+    "simple-git": "^3.2.4"
+  },
+  "devDependencies": {
+    "@oclif/test": "^2",
+    "@types/chai": "^4",
+    "@types/mocha": "^9.0.0",
+    "@types/node": "^16.9.4",
+    "chai": "^4",
+    "eslint": "^7.32.0",
+    "eslint-config-oclif": "^4",
+    "eslint-config-oclif-typescript": "^1.0.2",
+    "globby": "^11",
+    "mocha": "^9",
+    "oclif": "^2",
+    "shx": "^0.3.3",
+    "ts-node": "^10.2.1",
+    "tslib": "^2.3.1",
+    "typescript": "^4.4.3"
+  },
+  "oclif": {
+    "bin": "templatr",
+    "dirname": "templatr",
+    "commands": "./dist/commands",
+    "plugins": [
+      "@oclif/plugin-help",
+      "@oclif/plugin-plugins"
+    ],
+    "topicSeparator": " ",
+    "topics": {
+      "use": {
+        "description": "Use a template from a specified github repo"
+      }
+    }
+  },
+  "scripts": {
+    "build": "shx rm -rf dist && tsc -b"
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "bugs": "https://github.com/cal117/templatr/issues",
+  "keywords": [
+    "oclif"
+  ],
+  "types": "dist/index.d.ts"
+}
