@@ -1,6 +1,6 @@
 {
   "name": "tmplytr",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Generate projects from a template. Fill in defined placeholders from a .templatr file",
   "author": "cal117 @cal117",
   "bin": "./bin/run",
@@ -18,18 +18,26 @@
     "@oclif/core": "^1",
     "@oclif/plugin-help": "^5",
     "@oclif/plugin-plugins": "^2.0.1",
-    "@types/fs-extra": "^9.0.13",
-    "@types/glob": "^7.2.0",
-    "@types/inquirer": "^8.2.0",
+    "@types/valid-url": "^1.0.3",
     "appdata-path": "^1.0.0",
-    "fs-extra": "^10.0.0",
+    "command-exists": "^1.2.9",
+    "fs-extra": "^10.0.1",
+    "git-url-parse": "^11.6.0",
     "glob": "^7.2.0",
     "inquirer": "^8.2.0",
-    "simple-git": "^3.2.4"
+    "isbinaryfile": "^4.0.8",
+    "object-to-xml": "^2.0.0",
+    "simple-git": "^3.2.4",
+    "valid-url": "^1.0.9"
   },
   "devDependencies": {
     "@oclif/test": "^2",
     "@types/chai": "^4",
+    "@types/command-exists": "^1.2.0",
+    "@types/fs-extra": "^9.0.13",
+    "@types/git-url-parse": "^9.0.1",
+    "@types/glob": "^7.2.0",
+    "@types/inquirer": "^8.2.0",
     "@types/mocha": "^9.0.0",
     "@types/node": "^16.9.4",
     "chai": "^4",
@@ -56,6 +64,9 @@
     "topics": {
       "use": {
         "description": "Use a template from a specified github repo"
+      },
+      "config": {
+        "description": "Manage tmplytr config."
       }
     }
   },

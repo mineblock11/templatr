@@ -21,9 +21,9 @@ tmplytr use Lauriethefish/quest-mod-template
 
 ## Example `.templatr` file:
 
-This uses all required features except src.
+This uses all required features except `src` and `cachable`
 
-Src can be defined when the template is not in the root of the repo.
+`src` can be defined when the template is not in the root of the repo.
 
 ```json
 {
@@ -34,7 +34,8 @@ Src can be defined when the template is not in the root of the repo.
   "placeholders": [
     {
       "match": "#{ndkpath}",
-      "prompt": "The path to the android NDK"
+      "prompt": "The path to the android NDK",
+      "cachable": true
     },
     {
       "match": "#{id}",

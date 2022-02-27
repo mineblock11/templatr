@@ -1,0 +1,18 @@
+{
+	"_QPVersion": "0.1.1",
+	"name": "myname",
+	"id": "test",
+	"author": "cal117",
+	"version": "0.1.0",
+	"packageId": "com.beatgames.beatsaber",
+	"packageVersion": "1.17.1",
+	"description": "me",
+	"dependencies": [],
+	"modFiles": [
+		"libtest.so"
+	],
+	"libraryFiles": [
+		"libbeatsaber-hook_2_3_2.so"
+	],
+	"fileCopies": []
+}
