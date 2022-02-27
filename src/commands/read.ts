@@ -81,6 +81,8 @@ export default class ReadCommand extends Command {
           console.log(o2x(templateConfiguration));
           this.exit(0);
           break;
+      default:
+        console.table(templateConfiguration.placeholders)
       }
     }
 
