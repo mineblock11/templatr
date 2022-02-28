@@ -16,9 +16,10 @@ import * as commandExists from 'command-exists'
 import * as gitUrlParse from 'git-url-parse'
 import * as validUrl from 'valid-url'
 import {isBinaryFile} from 'isbinaryfile'
+import UseFormat, {ErrorTypes} from '../types/useFormat'
 
 export default class Use extends Command {
-  static description = 'describe the command here'
+  static description = 'Use a template from a specified GitHub repository.'
 
   static examples = [
     'templatr use Lauriethefish/quest-mod-template',
@@ -29,11 +30,12 @@ export default class Use extends Command {
   static flags = {
     gitlab: Flags.boolean({char: 'g', description: 'Use GitLab instead of GitHub'}),
     location: Flags.string({char: 'l', description: 'Where to create a project to.'}),
-    token: Flags.string({char: 't', description: "The gitlab or github token to authorize with."})
+    token: Flags.string({char: 't', description: "The gitlab or github token to authorize with."}),
+    input: Flags.string({char: 'i', description: "JSON input, useful for external use via programming ect."})
   }
 
   static args = [
-    {name: 'repository', required: true},
+    {name: 'repository'}
   ]
 
   public async run(): Promise<void> {
@@ -41,7 +43,35 @@ export default class Use extends Command {
 
     const config: IConfigStruct = await ConfigManager.getConfig();
 
-    let repo = args.repository.split('/')
+    if(flags.input != undefined) {
+      const jsonInput: UseFormat = JSON.parse(flags.input);
+      const cachedRepoLocation = await Utils.fetchRepository(jsonInput.owner, jsonInput.repo, jsonInput.gitlab, jsonInput.token);
+      if (!fs.existsSync(Path.join(cachedRepoLocation, '.templatr'))) {
+        console.error(ErrorTypes.NOTLF)
+        fs.rmSync(cachedRepoLocation, {recursive: true})
+        this.exit(1);
+      }
+      const templateConfiguration: TemplatrDefiner = JSON.parse(fs.readFileSync(Path.join(cachedRepoLocation, ".templatr"), {encoding: "utf-8"}));
+      await Utils.copyCacheToFolder(cachedRepoLocation, jsonInput.projectLocation, templateConfiguration);
+
+      glob(jsonInput.projectLocation + "/**/*", { dot: true, nodir: true }, (err, filePaths) => {
+        filePaths.forEach(async file => {
+          if(await isBinaryFile(file)) {
+            return;
+          }
+          let contents = fs.readFileSync(file, {encoding: "utf-8"});
+          jsonInput.replacements.forEach(replacement => {
+            const toFill = replacement.replacement;
+            contents = contents.replace(new RegExp(replacement.match, 'g'), toFill);
+          })
+          fs.writeFileSync(file, contents);
+        });
+      });
+      console.log("DONE")
+      this.exit(0)
+    }
+
+    let repo = args.repository.split('/');
 
     if (repo.length != 2) {
       if(validUrl.isUri(args.repository)) {
