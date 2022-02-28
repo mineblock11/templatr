@@ -19,6 +19,8 @@ enum Format {
 export default class ReadCommand extends Command {
   static description = `Get all placeholders on a project as json.`
 
+  static usage = "tmpytr read {repo}"
+
   static hidden = false
 
   static examples = [

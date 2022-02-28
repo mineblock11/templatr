@@ -21,10 +21,12 @@ import UseFormat, {ErrorTypes} from '../types/useFormat'
 export default class Use extends Command {
   static description = 'Use a template from a specified GitHub repository.'
 
+  static usage = "tmplytr use {repo}"
+
   static examples = [
-    'templatr use Lauriethefish/quest-mod-template',
-    'templatr use gitlab/test -g',
-    'templatr use user/privaterepo --token=A_VERY_SECRET_TOKEN',
+    '$ tmplytr use Lauriethefish/quest-mod-template',
+    '$ tmplytr use gitlab/test -g',
+    '$ tmplytr use user/privaterepo --token=A_VERY_SECRET_TOKEN',
   ]
 
   static flags = {
