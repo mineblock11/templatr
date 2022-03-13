@@ -3,6 +3,7 @@ import * as fs from 'fs-extra'
 import * as Path from 'path'
 import SpecialPaths from './types/specialPaths'
 import color = Mocha.reporters.Base.color
+import Spec = Mocha.reporters.Spec
 
 export interface IConfigStruct {
   ghToken?: string,
@@ -55,7 +56,14 @@ export default class ConfigManager {
         ghToken: undefined,
         glToken: undefined
       }
-      await fs.writeFileSync(SpecialPaths.CONFIG, JSON.stringify(userConfig, function(k, v) { return v === undefined ? null : v; }, 4));
+
+      if(!fs.existsSync(SpecialPaths.CONFIG)) {
+        fs.mkdirSync(SpecialPaths.CONFIG, { recursive: true });
+      }
+
+      fs.writeFileSync(SpecialPaths.CONFIG, JSON.stringify(userConfig, function (k, v) {
+        return v === undefined ? null : v
+      }, 4))
     }
     userConfig = await fs.readJSON(SpecialPaths.CONFIG);
     return userConfig;
