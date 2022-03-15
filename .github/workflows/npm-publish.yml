@@ -17,8 +17,13 @@ jobs:
           node-version: 16
           registry-url: https://registry.npmjs.org/
           cache: 'yarn'
+      - name: Get release
+        id: get_release
+        uses: bruceadams/get-release@v1.2.3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: yarn install
       - run: yarn build
-      - run: yarn publish
+      - run: yarn publish --new-version ${{ steps.get_release.outputs.tag_name }}
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
