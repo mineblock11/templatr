@@ -1,6 +1,6 @@
 {
   "name": "tmplytr",
-  "version": "1.2.0",
+  "version": "1.2.2",
   "description": "Generate projects from a template. Fill in defined placeholders from a .templatr file",
   "author": "cal117 @cal117",
   "bin": "./bin/run",
