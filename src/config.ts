@@ -57,8 +57,8 @@ export default class ConfigManager {
         glToken: undefined
       }
 
-      if(!fs.existsSync(SpecialPaths.CONFIG)) {
-        fs.mkdirSync(SpecialPaths.CONFIG, { recursive: true });
+      if(!fs.existsSync(SpecialPaths.APPDATA)) {
+        fs.mkdirSync(SpecialPaths.APPDATA, { recursive: true });
       }
 
       fs.writeFileSync(SpecialPaths.CONFIG, JSON.stringify(userConfig, function (k, v) {
