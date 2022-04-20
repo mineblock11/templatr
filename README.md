@@ -2,21 +2,12 @@
 
 Create project from templates on GitHub and GitLab - specified by a `.templatr` file.
 
-## Installation
-
-Use `npm` or `yarn` (or download the exe from the release page)
-
-```bash
-npm install -g tmplytr
-# or
-yarn add global tmplytr
-```
-
 ## Usage
 
 ```bash
-tmplytr use Lauriethefish/quest-mod-template
-# Will then follow you through a wizard allowing you to fill in all placeholders.
+templatr new quest-mod-template "https://github.com/Lauriethefish/quest-mod-template.git"
+# This only needs to be done once, then the template is saved to the config
+templatr use quest-mod-template
 ```
 
 ## Example `.templatr` file:
