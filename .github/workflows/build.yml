@@ -1,0 +1,31 @@
+on: push
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [windows, macos, ubuntu]
+        include:
+          - os: windows
+            build: yarn build-win
+            artifact: ./build/templatr.exe
+          - os: macos
+            build: yarn build-unix
+            artifact: ./build/templatr
+          - os: ubuntu
+            build: yarn build-unix
+            artifact: ./build/templatr
+    runs-on: ${{ matrix.os }}-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 16
+          registry-url: https://registry.npmjs.org/
+          cache: "yarn"
+      - run: |
+          yarn install
+          ${{ matrix.build }}
+      - uses: actions/upload-artifact@v2
+        with:
+          name: ${{ matrix.os }}
+          path: ${{ matrix.artifact }}

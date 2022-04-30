@@ -1,0 +1,45 @@
+{
+  "name": "tmplytr",
+  "version": "2.0.0",
+  "description": "Generate projects from a template. Fill in defined placeholders from a .templatr file",
+  "main": "./dist/main.js",
+  "type": "module",
+  "bin": {
+    "templatr": "./dist/main.js"
+  },
+  "repository": "https://github.com/cal117/templatr",
+  "author": "cal117",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "prepublishOnly": "tsc",
+    "dev": "tsc && npm link",
+    "build-win": "tsc && caxa -m \"This may take a while to run the first time, please wait...\" --input . -o \"./build/templatr.exe\" -- \"{{caxa}}/node_modules/.bin/node\" \"{{caxa}}/dist/main.js\"",
+    "build-unix": "tsc && caxa -m \"This may take a while to run the first time, please wait...\" --input . -o \"./build/templatr\" -- \"{{caxa}}/node_modules/.bin/node\" \"{{caxa}}/dist/main.js\" "
+  },
+  "devDependencies": {
+    "@types/inquirer": "^8.2.1",
+    "@types/node": "^17.0.24",
+    "@types/command-exists": "^1.2.0",
+    "@types/fs-extra": "^9.0.13",
+    "@types/git-url-parse": "^9.0.1",
+    "@types/glob": "^7.2.0",
+    "@types/valid-url": "^1.0.3",
+    "caxa": "^2.1.0",
+    "typescript": "^4.6.3"
+  },
+  "dependencies": {
+    
+    "appdata-path": "^1.0.0",
+    "chalk": "^5.0.1",
+    "command-exists": "^1.2.9",
+    "commander": "^9.2.0",
+    "fs-extra": "git+https://github.com/c-vetter/node-fs-extra.git#esm",
+    "git-url-parse": "^11.6.0",
+    "glob": "^8.0.1",
+    "inquirer": "^8.2.2",
+    "isbinaryfile": "^5.0.0",
+    "simple-git": "^3.6.0",
+    "valid-url": "^1.0.9"
+  }
+}
